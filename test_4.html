@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadanie 4</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <style>
+        .db {
+            display: block;
+            margin-bottom: 50px;
+        }
+        .ignore {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+    <label for="input1">Input 1<em>*</em></label>
+
+    <div class="db">
+        <input type="text" id="input1" />
+    </div>
+
+    <div class="db">
+        <label>
+            Input 2<em>*</em>
+            <input type="text" name="input2" />
+        </label>
+    </div>
+
+    <div class="db">
+        <button id="ignoreInput1" onclick="$('.db > input').ignore(true);">Ignore true input 1</button>
+        <button id="acceptInput1" onclick="$('.db > input').ignore(false);">Ignore false input 1</button>
+        <button id="ignoreInput2" onclick="$('.db > label > input').ignore(true);">Ignore true input 2</button>
+        <button id="acceptInput2" onclick="$('.db > label > input').ignore(false);">Ignore false input 2</button>
+        <button id="ignoreAll" onclick="$('input').ignore(true);">Ignore true all</button>
+        <button id="acceptAll" onclick="$('input').ignore(false);">Ignore false all</button>
+    </div>
+
+<script>
+    $.fn.ignore = function (state) {
+
+        var oInputs = $(this);
+        oInputs.each(function(){
+
+            var oLabel = $("label[for='"+$(this).attr('id')+"'] em");
+            if(!oLabel.length) {
+                oLabel = $(this).closest('label').find('em');
+            }
+
+            if(state) {
+                $(this).addClass('ignore');
+                oLabel.hide();
+            } else {
+                $(this).removeClass('ignore');
+                oLabel.show();
+            }
+        });
+        return $(this);
+    };
+</script>
+</body>
+</html>

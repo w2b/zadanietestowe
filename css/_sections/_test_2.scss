@@ -1,0 +1,33 @@
+*[data-tooltip] {
+  text-decoration: underline;
+  position: relative;
+  cursor: help;
+
+  &:after {
+    position: absolute;
+    visibility: hidden;
+    @include cssTransition();
+    @include opacity(0);
+    content: attr(data-tooltip);
+    padding: 5px 3px;
+    font-size: 16px;
+    left: 50%;
+    bottom: 100%;
+    width: 150px;
+    @include border-radius(5px);
+    text-align: center;
+    border: 1px solid #666;
+    background-color: #eee;
+    z-index: 999;
+  }
+
+  &:hover {
+
+    &:after, &:before {
+      visibility: visible;
+      margin-left: -75px;
+      @include opacity(1);
+    }
+
+  }
+}

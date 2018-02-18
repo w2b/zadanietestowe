@@ -1,0 +1,169 @@
+
+@function calculateRem($size) {
+  $remSize: $size / $bodyFontSize;
+  @return #{$remSize}rem;
+}
+
+@mixin fontSize($size) {
+  font-size: $size; //Fallback in px
+  font-size: calculateRem($size);
+}
+
+@mixin cssTransition() {
+  @include css3-prefix(transition, 'all 0.5s ease');
+}
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin bgCover() {
+  @include css3-prefix(background-size, cover);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin removeBorderRadius() {
+  @include css3-prefix(border-radius, 0);
+}
+
+@mixin removeBoxShadow() {
+  @include css3-prefix(box-shadow, none);
+}
+
+@mixin absoluteCover() {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin triangle($direction, $sizeH, $sizeV, $color){
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  -moz-transform: scale(.9999);
+
+  @if $direction == top {
+    border-width: 0 $sizeV $sizeH $sizeV;
+    border-color: transparent transparent $color transparent;
+  }
+  @if $direction == bottom{
+    border-width: $sizeV $sizeH 0 $sizeV;
+    border-color: $color transparent transparent transparent;
+  }
+  @if $direction == left{
+    border-width: $sizeV $sizeH $sizeV 0;
+    border-color: transparent $color transparent transparent;
+  }
+  @if $direction == right{
+    border-width: $sizeV 0 $sizeV $sizeH;
+    border-color: transparent transparent transparent $color;
+  }
+  @if $direction == topright{
+    border-width: 0 $sizeH $sizeV 0;
+    border-color: transparent $color transparent transparent;
+  }
+  @if $direction == bottomright{
+    border-width: 0 0 $sizeH $sizeV;
+    border-color: transparent transparent $color transparent;
+  }
+  @if $direction == bottomleft{
+    border-width: $sizeH 0 0 $sizeV;
+    border-color: transparent transparent transparent $color;
+  }
+  @if $direction == topleft{
+    border-width: $sizeH $sizeV 0 0;
+    border-color: $color transparent transparent transparent;
+  }
+}
+
+@mixin fontelloIcon() {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: auto;
+  margin-right: .2em;
+  text-align: center;
+}
+
+@mixin scale($size: '1.1, 1.1') {
+  @include transform(scale(#{$size}));
+}
+
+@mixin changeGutter($size: '30px') {
+  margin-left: -($size / 2);
+  margin-right: -($size / 2);
+
+  > [class*='col-'] {
+    padding-left: ($size / 2);
+    padding-right: ($size / 2);
+  }
+}
+
+@mixin centerer($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+ //USAGE MEDIA QUERIES
+ // div {
+ //   height: 390px;
+ //
+ //   @include breakpoint(mobile) {
+ //     margin-bottom: 15px;
+ //   }
+ // }
+
+@mixin breakpoint($point) {
+  @if $point == large {
+    @media (min-width: 1200px) { @content ; }
+  }
+  @else if $point == small {
+    @media (min-width: 992px) and (max-width: 1199px) { @content ; }
+  }
+  @else if $point == tablet {
+    @media (min-width: 768px) and (max-width: 991px) { @content ; }
+  }
+  @else if $point == smalltablet {
+    @media (min-width: 768px) and (max-width: 1199px) { @content ; }
+  }
+  @else if $point == tabletmobile {
+    @media (max-width: 991px) { @content ; }
+  }
+  @else if $point == mobile {
+    @media (max-width: 767px)  { @content ; }
+  }
+}

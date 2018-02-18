@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <title>Zadanie 3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width,minimal-ui">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $.fn.enumerate = function(array) {
+                // @TODO
+                $(this).click(function(e){
+                    var iClick = $(this).data('iClick') ? $(this).data('iClick') : 0;
+                    iClick++;
+                    $(this).data('iClick', iClick);
+
+                    var oSpan = $(this).find('span');
+                    if(oSpan.length) {
+                        oSpan.text('('+iClick+')');
+                    } else {
+                        $(this).append( '<span>('+iClick+')</span>' );
+                    }
+                });
+                return $(this);
+            };
+
+            $('.element').enumerate();
+        });
+    </script>
+
+    <style>
+        .element {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            background-color: #000000;
+            color: #ff6600;
+            float: left;
+            margin: 20px;
+            border: 5px solid #ff6600;
+            text-align: center;
+            font-size: 30px;
+            line-height: 90px;
+        }
+
+        .element span {
+            font-size: 15px;
+            vertical-align: super;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="elem-container">
+
+        <div class="element">1</div>
+        <div class="element">2</div>
+        <div class="element">3</div>
+        <div class="element">4</div>
+        <div class="element">5</div>
+        <div class="element">6</div>
+        <div class="element">7</div>
+        <div class="element">8</div>
+        <div class="element">9</div>
+        <div class="element">0</div>
+        <div class="element"></div>
+
+    </div>
+</body>
+</html>

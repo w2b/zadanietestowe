@@ -1,0 +1,67 @@
+%myColumns {
+  > .column {
+    width: 25%;
+
+    &:nth-child(2) {
+      width: 50%;
+
+      @include breakpoint(mobile) {
+        width: 100%;
+      }
+    }
+
+    @include breakpoint(mobile) {
+      width: 100%;
+    }
+  }
+}
+
+.myRow {
+
+  &.no-gutters {
+    @include changeGutter(0);
+  }
+
+  &.rowFlex {
+    @extend %myColumns;
+    @include flexbox();
+
+    @include breakpoint(mobile) {
+      @include flex-wrap(wrap);
+    }
+  }
+
+  &.rowTable {
+    @extend %myColumns;
+    display: table;
+    width: 100%;
+
+    > .column {
+      display: table-cell;
+
+      @include breakpoint(mobile) {
+        display: block;
+      }
+    }
+  }
+
+  &.rowInlineBlock {
+    @extend %myColumns;
+    font-size: 0;
+
+    > .column {
+      display: inline-block;
+      font-size: 20px;
+    }
+  }
+
+  &.rowFloat {
+    @extend %myColumns;
+    @include clearfix();
+
+    > .column {
+      float: left;
+    }
+  }
+
+}
